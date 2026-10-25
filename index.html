@@ -40,7 +40,7 @@ a{color:inherit}
 
 /* ---- hero ---- */
 .hero{max-width:900px;margin:0 auto;grid-template-columns:minmax(0,1fr);text-align:center;padding-block:72px 96px;display:grid;justify-items:center;gap:26px}
-.mark{width:112px;height:112px;display:block;overflow:visible}
+.mark{width:132px;height:88px;display:block}
 .logos-wrap{display:grid;gap:10px;justify-items:center;margin-top:-4px}
 .logos{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 18px}
 @media (min-width:900px){.logos{flex-wrap:nowrap}}
@@ -50,20 +50,8 @@ a{color:inherit}
 .logos li:has(.afwm){padding:0 6px}
 .logos .gwring{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--brand);color:var(--brand);display:grid;place-items:center;font-size:6px;font-weight:700;letter-spacing:-.02em;flex:none}
 @keyframes chip{to{opacity:1;transform:none}}
-.mark .track{stroke:var(--line);stroke-width:1}
-.mark .orb{transform-origin:60px 60px}
-.mark .o1{animation:turn 18s linear infinite}
-.mark .o2{animation:turn 32s linear infinite reverse}
-.mark .nd{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:pop .45s cubic-bezier(.3,1.5,.5,1) forwards;animation-delay:calc(.3s + var(--i)*.07s)}
-.mark .halo{opacity:0;transform-box:fill-box;transform-origin:center;animation:halo 3.2s ease-out infinite;animation-delay:calc(1.2s + var(--i)*.4s)}
-.mark .pt{opacity:0;animation:flowin 3.2s cubic-bezier(.5,0,.8,.6) infinite;animation-delay:calc(1.2s + var(--i)*.4s)}
-.mark .core{transform-box:fill-box;transform-origin:center;animation:pop .5s .15s cubic-bezier(.3,1.5,.5,1) both}
-.mark .beat{transform-box:fill-box;transform-origin:center;animation:beat 3.2s 1.2s ease-in-out infinite}
-@keyframes turn{to{transform:rotate(360deg)}}
-@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
-@keyframes halo{0%{opacity:.28;transform:scale(.6)}60%,100%{opacity:0;transform:scale(1.35)}}
-@keyframes flowin{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}80%{opacity:1;transform:translate(var(--dx),var(--dy))}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
-@keyframes beat{0%,100%{transform:scale(1);opacity:1}12%{transform:scale(1.45);opacity:.85}24%{transform:scale(1)}}
+.mark path{stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.4s .15s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
 h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(26px,3.5vw,42px);line-height:1.02;letter-spacing:-.04em;text-wrap:balance}
 h1 .ico{display:inline-grid;place-items:center;width:.95em;height:.95em;border-radius:50%;background:linear-gradient(135deg,#ffe9ee,#ffd0da);vertical-align:-.12em;margin:0 .08em;box-shadow:inset 0 0 0 1.5px rgba(220,0,50,.18)}
 h1 .ico svg{width:60%;height:60%}
@@ -118,7 +106,7 @@ h1 .ico svg{width:60%;height:60%}
 .in{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
 @keyframes rise{to{opacity:1;transform:none}}
 .foot{max-width:1680px;margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:16px 28px;font-size:12.5px;color:var(--fg-3);border-top:1px solid var(--line)}
-@media (prefers-reduced-motion:reduce){.in,.row .tile{animation:none;opacity:1;transform:none}.mark *{animation:none!important}.mark .nd,.mark .core{transform:none}.logos li{animation:none;opacity:1;transform:none}.tile,.tile.lit{transition:none;transform:none}.tile.lit .mono::after{animation:none}}
+@media (prefers-reduced-motion:reduce){.in,.row .tile{animation:none;opacity:1;transform:none}.mark path{animation:none;stroke-dashoffset:0}.logos li{animation:none;opacity:1;transform:none}.tile,.tile.lit{transition:none;transform:none}.tile.lit .mono::after{animation:none}}
 </style>
 </head>
 <body>
@@ -128,51 +116,10 @@ h1 .ico svg{width:60%;height:60%}
 </header>
 
 <section class="hero">
-  <!-- Constellation mark: a central meter with two counter-rotating orbits; each node is a platform in its own colour, sending cost signals into the core -->
-  <svg class="mark in" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-    <defs><linearGradient id="lo20" gradientUnits="userSpaceOnUse" x1="89.4" y1="19.5" x2="60" y2="60"><stop stop-color="#ff3621" stop-opacity=".7"/><stop offset="1" stop-color="#ff3621" stop-opacity="0"/></linearGradient><linearGradient id="lo21" gradientUnits="userSpaceOnUse" x1="107.6" y1="75.5" x2="60" y2="60"><stop stop-color="#7a3be0" stop-opacity=".7"/><stop offset="1" stop-color="#7a3be0" stop-opacity="0"/></linearGradient><linearGradient id="lo22" gradientUnits="userSpaceOnUse" x1="60.0" y1="110.0" x2="60" y2="60"><stop stop-color="#00a1e0" stop-opacity=".7"/><stop offset="1" stop-color="#00a1e0" stop-opacity="0"/></linearGradient><linearGradient id="lo23" gradientUnits="userSpaceOnUse" x1="12.4" y1="75.5" x2="60" y2="60"><stop stop-color="#f2a900" stop-opacity=".7"/><stop offset="1" stop-color="#f2a900" stop-opacity="0"/></linearGradient><linearGradient id="lo24" gradientUnits="userSpaceOnUse" x1="30.6" y1="19.5" x2="60" y2="60"><stop stop-color="#e0379c" stop-opacity=".7"/><stop offset="1" stop-color="#e0379c" stop-opacity="0"/></linearGradient><linearGradient id="lo10" gradientUnits="userSpaceOnUse" x1="60.0" y1="31.0" x2="60" y2="60"><stop stop-color="#0f6cbd" stop-opacity=".7"/><stop offset="1" stop-color="#0f6cbd" stop-opacity="0"/></linearGradient><linearGradient id="lo11" gradientUnits="userSpaceOnUse" x1="85.1" y1="74.5" x2="60" y2="60"><stop stop-color="#d97757" stop-opacity=".7"/><stop offset="1" stop-color="#d97757" stop-opacity="0"/></linearGradient><linearGradient id="lo12" gradientUnits="userSpaceOnUse" x1="34.9" y1="74.5" x2="60" y2="60"><stop stop-color="#0f8a5f" stop-opacity=".7"/><stop offset="1" stop-color="#0f8a5f" stop-opacity="0"/></linearGradient><radialGradient id="coreglow" cx="60" cy="60" r="26" gradientUnits="userSpaceOnUse"><stop stop-color="#dc0032" stop-opacity=".18"/><stop offset="1" stop-color="#dc0032" stop-opacity="0"/></radialGradient><linearGradient id="coreg" x1="48" y1="48" x2="72" y2="72" gradientUnits="userSpaceOnUse"><stop stop-color="#2a2e36"/><stop offset="1" stop-color="#0d0f13"/></linearGradient></defs>
-    <circle class="track" cx="60" cy="60" r="29"/>
-    <circle class="track" cx="60" cy="60" r="50"/>
-    <circle cx="60" cy="60" r="26" fill="url(#coreglow)"/>
-    <g class="orb o2">
-      <line x1="89.4" y1="19.5" x2="60" y2="60" stroke="url(#lo20)" stroke-width="1.3" stroke-linecap="round"/>
-      <circle class="pt" cx="89.4" cy="19.5" r="1.6" fill="#ff3621" style="--dx:-21.2px;--dy:29.1px;--i:3"/>
-      <circle class="halo" cx="89.4" cy="19.5" r="9.2" fill="#ff3621" style="--i:3"/>
-      <g class="nd" style="--i:3"><circle cx="89.4" cy="19.5" r="5.2" fill="var(--bg)" stroke="#ff3621" stroke-width="1.8"/><circle cx="89.4" cy="19.5" r="2.3" fill="#ff3621"/></g>
-      <line x1="107.6" y1="75.5" x2="60" y2="60" stroke="url(#lo21)" stroke-width="1.3" stroke-linecap="round"/>
-      <circle class="pt" cx="107.6" cy="75.5" r="1.6" fill="#7a3be0" style="--dx:-34.2px;--dy:-11.1px;--i:4"/>
-      <circle class="halo" cx="107.6" cy="75.5" r="9.2" fill="#7a3be0" style="--i:4"/>
-      <g class="nd" style="--i:4"><circle cx="107.6" cy="75.5" r="5.2" fill="var(--bg)" stroke="#7a3be0" stroke-width="1.8"/><circle cx="107.6" cy="75.5" r="2.3" fill="#7a3be0"/></g>
-      <line x1="60.0" y1="110.0" x2="60" y2="60" stroke="url(#lo22)" stroke-width="1.3" stroke-linecap="round"/>
-      <circle class="pt" cx="60.0" cy="110.0" r="1.6" fill="#00a1e0" style="--dx:-0.0px;--dy:-36.0px;--i:5"/>
-      <circle class="halo" cx="60.0" cy="110.0" r="9.2" fill="#00a1e0" style="--i:5"/>
-      <g class="nd" style="--i:5"><circle cx="60.0" cy="110.0" r="5.2" fill="var(--bg)" stroke="#00a1e0" stroke-width="1.8"/><circle cx="60.0" cy="110.0" r="2.3" fill="#00a1e0"/></g>
-      <line x1="12.4" y1="75.5" x2="60" y2="60" stroke="url(#lo23)" stroke-width="1.3" stroke-linecap="round"/>
-      <circle class="pt" cx="12.4" cy="75.5" r="1.6" fill="#f2a900" style="--dx:34.2px;--dy:-11.1px;--i:6"/>
-      <circle class="halo" cx="12.4" cy="75.5" r="9.2" fill="#f2a900" style="--i:6"/>
-      <g class="nd" style="--i:6"><circle cx="12.4" cy="75.5" r="5.2" fill="var(--bg)" stroke="#f2a900" stroke-width="1.8"/><circle cx="12.4" cy="75.5" r="2.3" fill="#f2a900"/></g>
-      <line x1="30.6" y1="19.5" x2="60" y2="60" stroke="url(#lo24)" stroke-width="1.3" stroke-linecap="round"/>
-      <circle class="pt" cx="30.6" cy="19.5" r="1.6" fill="#e0379c" style="--dx:21.2px;--dy:29.1px;--i:7"/>
-      <circle class="halo" cx="30.6" cy="19.5" r="9.2" fill="#e0379c" style="--i:7"/>
-      <g class="nd" style="--i:7"><circle cx="30.6" cy="19.5" r="5.2" fill="var(--bg)" stroke="#e0379c" stroke-width="1.8"/><circle cx="30.6" cy="19.5" r="2.3" fill="#e0379c"/></g>
-    </g>
-    <g class="orb o1">
-      <line x1="60.0" y1="31.0" x2="60" y2="60" stroke="url(#lo10)" stroke-width="1.3" stroke-linecap="round"/>
-      <circle class="pt" cx="60.0" cy="31.0" r="1.6" fill="#0f6cbd" style="--dx:0.0px;--dy:20.9px;--i:0"/>
-      <circle class="halo" cx="60.0" cy="31.0" r="8.4" fill="#0f6cbd" style="--i:0"/>
-      <g class="nd" style="--i:0"><circle cx="60.0" cy="31.0" r="4.4" fill="var(--bg)" stroke="#0f6cbd" stroke-width="1.8"/><circle cx="60.0" cy="31.0" r="2.0" fill="#0f6cbd"/></g>
-      <line x1="85.1" y1="74.5" x2="60" y2="60" stroke="url(#lo11)" stroke-width="1.3" stroke-linecap="round"/>
-      <circle class="pt" cx="85.1" cy="74.5" r="1.6" fill="#d97757" style="--dx:-18.1px;--dy:-10.4px;--i:1"/>
-      <circle class="halo" cx="85.1" cy="74.5" r="8.4" fill="#d97757" style="--i:1"/>
-      <g class="nd" style="--i:1"><circle cx="85.1" cy="74.5" r="4.4" fill="var(--bg)" stroke="#d97757" stroke-width="1.8"/><circle cx="85.1" cy="74.5" r="2.0" fill="#d97757"/></g>
-      <line x1="34.9" y1="74.5" x2="60" y2="60" stroke="url(#lo12)" stroke-width="1.3" stroke-linecap="round"/>
-      <circle class="pt" cx="34.9" cy="74.5" r="1.6" fill="#0f8a5f" style="--dx:18.1px;--dy:-10.4px;--i:2"/>
-      <circle class="halo" cx="34.9" cy="74.5" r="8.4" fill="#0f8a5f" style="--i:2"/>
-      <g class="nd" style="--i:2"><circle cx="34.9" cy="74.5" r="4.4" fill="var(--bg)" stroke="#0f8a5f" stroke-width="1.8"/><circle cx="34.9" cy="74.5" r="2.0" fill="#0f8a5f"/></g>
-    </g>
-    <circle class="core" cx="60" cy="60" r="12.5" fill="url(#coreg)"/>
-    <circle cx="60" cy="60" r="8.2" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="1"/>
-    <circle class="beat" cx="60" cy="60" r="3.6" fill="#dc0032"/>
+  <!-- Portal mark: a single stroke that rises through three steps, drawn on load -->
+  <svg class="mark in" viewBox="0 0 132 88" fill="none" aria-hidden="true">
+    <path d="M8 72 C 22 72, 24 24, 38 24 S 54 72, 68 72 S 84 16, 98 16 S 112 72, 126 72" stroke="url(#g)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    <defs><linearGradient id="g" x1="8" y1="44" x2="126" y2="44" gradientUnits="userSpaceOnUse"><stop stop-color="#b4002a"/><stop offset="1" stop-color="#ff3b6b"/></linearGradient></defs>
   </svg>
   <h1 class="in" style="--d:.25s">One AI Cost Portal,<br>Metering every AI cost in one place</h1>
   <p class="lede in" style="--d:.4s">Spend, usage and ownership across every platform the bank runs AI on.</p>
