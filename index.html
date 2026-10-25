@@ -50,7 +50,9 @@ a{color:inherit}
 .logos li:has(.afwm){padding:0 6px}
 .logos .gwring{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--brand);color:var(--brand);display:grid;place-items:center;font-size:6px;font-weight:700;letter-spacing:-.02em;flex:none}
 @keyframes chip{to{opacity:1;transform:none}}
-.mark path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.4s .15s ease-out forwards}
+.mark .inf{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.6s .15s cubic-bezier(.65,0,.35,1) forwards}
+.mark .glint{stroke-dasharray:.06 .94;stroke-dashoffset:0;opacity:0;animation:glint 3.2s 1.8s linear infinite}
+@keyframes glint{0%{opacity:.55;stroke-dashoffset:0}100%{opacity:.55;stroke-dashoffset:-1}}
 @keyframes draw{to{stroke-dashoffset:0}}
 h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(26px,3.5vw,42px);line-height:1.02;letter-spacing:-.04em;text-wrap:balance}
 h1 .ico{display:inline-grid;place-items:center;width:.95em;height:.95em;border-radius:50%;background:linear-gradient(135deg,#ffe9ee,#ffd0da);vertical-align:-.12em;margin:0 .08em;box-shadow:inset 0 0 0 1.5px rgba(220,0,50,.18)}
@@ -106,7 +108,7 @@ h1 .ico svg{width:60%;height:60%}
 .in{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
 @keyframes rise{to{opacity:1;transform:none}}
 .foot{max-width:1680px;margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:16px 28px;font-size:12.5px;color:var(--fg-3);border-top:1px solid var(--line)}
-@media (prefers-reduced-motion:reduce){.in,.row .tile{animation:none;opacity:1;transform:none}.mark path{animation:none;stroke-dashoffset:0}.logos li{animation:none;opacity:1;transform:none}.tile,.tile.lit{transition:none;transform:none}.tile.lit .mono::after{animation:none}}
+@media (prefers-reduced-motion:reduce){.in,.row .tile{animation:none;opacity:1;transform:none}.mark .inf{animation:none;stroke-dashoffset:0}.mark .glint{display:none}.logos li{animation:none;opacity:1;transform:none}.tile,.tile.lit{transition:none;transform:none}.tile.lit .mono::after{animation:none}}
 </style>
 </head>
 <body>
@@ -116,10 +118,11 @@ h1 .ico svg{width:60%;height:60%}
 </header>
 
 <section class="hero">
-  <!-- Portal mark: a lowercase "a" (for Absa) in one brush stroke, in the style of the original M, drawn on load -->
+  <!-- Portal mark: an infinity loop in one brush stroke, drawn on load; a soft light then travels the loop -->
   <svg class="mark in" viewBox="0 0 132 88" fill="none" aria-hidden="true">
-    <defs><linearGradient id="g" x1="30" y1="44" x2="110" y2="44" gradientUnits="userSpaceOnUse"><stop stop-color="#b4002a"/><stop offset="1" stop-color="#ff3b6b"/></linearGradient></defs>
-    <path pathLength="1" d="M84 30 C 76 18, 56 16, 46 26 C 34 38, 34 64, 50 72 C 64 79, 80 66, 84 46 C 84 58, 86 72, 100 72" stroke="url(#g)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    <defs><linearGradient id="g" x1="12" y1="44" x2="120" y2="44" gradientUnits="userSpaceOnUse"><stop stop-color="#b4002a"/><stop offset="1" stop-color="#ff3b6b"/></linearGradient></defs>
+    <path class="inf" pathLength="1" d="M66 44 C 80 22, 114 22, 114 44 C 114 66, 80 66, 66 44 C 52 22, 18 22, 18 44 C 18 66, 52 66, 66 44" stroke="url(#g)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="glint" pathLength="1" d="M66 44 C 80 22, 114 22, 114 44 C 114 66, 80 66, 66 44 C 52 22, 18 22, 18 44 C 18 66, 52 66, 66 44" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
   </svg>
   <h1 class="in" style="--d:.25s">One AI Cost Portal,<br>Metering every AI cost in one place</h1>
   <p class="lede in" style="--d:.4s">Spend, usage and ownership across every platform the bank runs AI on.</p>
