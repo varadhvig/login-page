@@ -50,7 +50,9 @@ a{color:inherit}
 .logos li:has(.afwm){padding:0 6px}
 .logos .gwring{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--brand);color:var(--brand);display:grid;place-items:center;font-size:6px;font-weight:700;letter-spacing:-.02em;flex:none}
 @keyframes chip{to{opacity:1;transform:none}}
-.mark path{stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.4s .15s ease-out forwards}
+.mark path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .9s .15s ease-out forwards}
+.mark .s2{animation-duration:.4s;animation-delay:.95s}
+.mark .s3{animation-duration:.5s;animation-delay:1.25s}
 @keyframes draw{to{stroke-dashoffset:0}}
 h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(26px,3.5vw,42px);line-height:1.02;letter-spacing:-.04em;text-wrap:balance}
 h1 .ico{display:inline-grid;place-items:center;width:.95em;height:.95em;border-radius:50%;background:linear-gradient(135deg,#ffe9ee,#ffd0da);vertical-align:-.12em;margin:0 .08em;box-shadow:inset 0 0 0 1.5px rgba(220,0,50,.18)}
@@ -116,10 +118,14 @@ h1 .ico svg{width:60%;height:60%}
 </header>
 
 <section class="hero">
-  <!-- Portal mark: a single stroke that rises through three steps, drawn on load -->
+  <!-- AI mark: "AI" in the same rounded brush stroke as the original M, drawn in on load -->
   <svg class="mark in" viewBox="0 0 132 88" fill="none" aria-hidden="true">
-    <path d="M8 72 C 22 72, 24 24, 38 24 S 54 72, 68 72 S 84 16, 98 16 S 112 72, 126 72" stroke="url(#g)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
     <defs><linearGradient id="g" x1="8" y1="44" x2="126" y2="44" gradientUnits="userSpaceOnUse"><stop stop-color="#b4002a"/><stop offset="1" stop-color="#ff3b6b"/></linearGradient></defs>
+    <g stroke="url(#g)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+      <path class="s1" pathLength="1" d="M8 74 C 20 74, 26 16, 42 16 C 58 16, 64 74, 76 74"/>
+      <path class="s2" pathLength="1" d="M24 50 C 36 46, 50 46, 62 50"/>
+      <path class="s3" pathLength="1" d="M98 16 C 98 40, 98 52, 98 74"/>
+    </g>
   </svg>
   <h1 class="in" style="--d:.25s">One AI Cost Portal,<br>Metering every AI cost in one place</h1>
   <p class="lede in" style="--d:.4s">Spend, usage and ownership across every platform the bank runs AI on.</p>
