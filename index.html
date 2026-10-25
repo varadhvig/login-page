@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>One AI Cost Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: single white page. Tiny corner chrome, one big centred statement, a short sign-in block, then the platform roster animating in as three rows. */
+:root{
+  --bg:#ffffff; --fg:#111317; --fg-2:#4b5059; --fg-3:#8a909b; --line:#e6e8ee; --field:#f2f3f5;
+  --brand:#dc0032; --brand-2:#b4002a; --gateway:#5a1420;
+  --c-claude:#d97757; --c-github:#24292f; --c-ms:#0f6cbd; --c-dbx:#ff3621; --c-sf:#00a1e0;
+  --font-display:"Plus Jakarta Sans", "IBM Plex Sans", system-ui, sans-serif;
+  --font-ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0f1115; --fg:#f2f3f5; --fg-2:#b5bac4; --fg-3:#7d838f; --line:#262a33; --field:#1a1d25; --brand:#ff3b6b; --brand-2:#d61e4d; --c-github:#e6e8ee; color-scheme:dark }}
+:root[data-theme="dark"]{ --bg:#0f1115; --fg:#f2f3f5; --fg-2:#b5bac4; --fg-3:#7d838f; --line:#262a33; --field:#1a1d25; --brand:#ff3b6b; --brand-2:#d61e4d; --c-github:#e6e8ee; color-scheme:dark }
+
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{display:flex;flex-direction:column;min-height:100vh}
+.hero{flex:1;align-content:center}
+.top,.foot{width:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-ui);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+
+/* ---- corner chrome ---- */
+.top{display:flex;align-items:center;justify-content:space-between;max-width:1680px;margin:0 auto;padding-block:22px}
+.absa{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
+.absa .ring{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--brand);display:grid;place-items:center;font-size:7px;font-weight:700;color:var(--brand);letter-spacing:-.02em;flex:none}
+.absa .org{display:grid;line-height:1.2}
+.absa .org b{font-weight:500;font-size:14px;letter-spacing:-.01em}
+.absa .org span{font-weight:400;font-size:12px;color:var(--fg-3)}
+.absa img{height:22px;width:auto;display:none}
+.absa.has-logo img{display:block} .absa.has-logo .ring{display:none}
+.login{border:0;background:var(--brand);color:#fff;font:inherit;font-weight:600;font-size:15px;padding:12px 22px;border-radius:999px;cursor:pointer;text-decoration:none;box-shadow:0 6px 16px color-mix(in srgb,var(--brand) 28%,transparent)}
+
+/* ---- hero ---- */
+.hero{max-width:900px;margin:0 auto;text-align:center;padding-block:72px 96px;display:grid;justify-items:center;gap:26px}
+.mark{width:112px;height:112px;display:block;overflow:visible}
+.mark .track{stroke:var(--line);stroke-width:1.2;stroke-dasharray:2 4}
+.mark .orb{transform-origin:60px 60px}
+.mark .o1{animation:turn 14s linear infinite}
+.mark .o2{animation:turn 26s linear infinite reverse}
+.mark .link{stroke-width:1.4;stroke-opacity:.45;stroke-linecap:round}
+.mark .dot{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:pop .4s cubic-bezier(.3,1.5,.5,1) forwards;animation-delay:calc(.35s + var(--i)*.08s)}
+.mark .halo{opacity:0;transform-box:fill-box;transform-origin:center;animation:halo 3s ease-out infinite;animation-delay:calc(1s + var(--i)*.6s)}
+.mark .core{fill:var(--fg);transform-box:fill-box;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+.mark .core-in{fill:var(--bg)}
+@keyframes turn{to{transform:rotate(360deg)}}
+@keyframes pop{to{transform:scale(1)}}
+@keyframes halo{0%{opacity:.35;transform:scale(.5)}70%,100%{opacity:0;transform:scale(1.3)}}
+@keyframes breathe{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.06) rotate(45deg)}}
+h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(26px,3.5vw,42px);line-height:1.02;letter-spacing:-.04em;text-wrap:balance}
+h1 .ico{display:inline-grid;place-items:center;width:.95em;height:.95em;border-radius:50%;background:linear-gradient(135deg,#ffe9ee,#ffd0da);vertical-align:-.12em;margin:0 .08em;box-shadow:inset 0 0 0 1.5px rgba(220,0,50,.18)}
+h1 .ico svg{width:60%;height:60%}
+.lede{margin:-8px 0 0;color:var(--fg-2);font-size:16.5px;max-width:none}
+@media (min-width:720px){.lede{white-space:nowrap}}
+
+/* ---- sign in ---- */
+.auth{width:100%;max-width:360px;margin:18px auto 0;display:grid;gap:12px;justify-items:stretch;text-align:center}
+.auth .cap{color:var(--fg-2);font-size:17px;margin:0 0 6px}
+.field{display:flex;align-items:center;background:var(--field);border:1.5px solid transparent;border-radius:16px;padding:0 20px;height:64px;transition:border-color .15s,background .15s}
+.field:focus-within{border-color:var(--brand);background:var(--bg)}
+.field input{flex:1;min-width:0;border:0;background:none;outline:0;font:inherit;font-size:17px;color:var(--fg)}
+.field input::placeholder{color:var(--fg-3)}
+.small{font-size:13px;color:var(--fg-3);margin:0;text-wrap:balance}
+.small a{color:var(--brand)}
+.sso{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;border-radius:999px;background:var(--fg);color:var(--bg);font-weight:500;font-size:15px;text-decoration:none;transition:transform .12s,opacity .12s}
+.sso:hover{transform:translateY(-1px);opacity:.92}
+.sso .sq{width:15px;height:15px;display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.sso .sq i{display:block;background:currentColor;opacity:.85}
+.continue{height:58px;border:0;border-radius:999px;background:var(--brand);color:#fff;font:inherit;font-weight:600;font-size:17px;cursor:pointer;box-shadow:0 8px 18px color-mix(in srgb,var(--brand) 26%,transparent);transition:transform .12s,box-shadow .12s}
+.continue:hover{transform:translateY(-1px);box-shadow:0 12px 24px color-mix(in srgb,var(--brand) 32%,transparent)}
+.continue:disabled{opacity:.6;cursor:default;transform:none}
+.or{display:flex;align-items:center;gap:12px;color:var(--fg-3);font-size:12.5px;text-transform:uppercase;letter-spacing:.12em}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.ms{height:52px;border:1.5px solid var(--line);border-radius:999px;background:var(--bg);font:inherit;font-weight:600;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;color:var(--fg)}
+.ms .sq{width:16px;height:16px;display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.ms .sq i{display:block;background:var(--fg-3)}
+.msg{display:none;border-radius:10px;padding:10px 12px;font-size:13.5px;text-align:left;border:1px solid var(--line);background:var(--field);color:var(--fg-2)}
+.msg.show{display:block}
+.msg.err{border-color:color-mix(in srgb,var(--brand) 35%,var(--line));background:color-mix(in srgb,var(--brand) 6%,var(--bg));color:var(--brand)}
+
+/* ---- platform roster ---- */
+.roster{max-width:980px;margin:0 auto;padding-block:70px 60px;display:grid;gap:22px;justify-items:center}
+.gw{display:inline-flex;align-items:center;gap:14px;background:var(--gateway);color:#fff;border-radius:14px;padding:16px 34px;font-family:var(--font-display);font-weight:800;font-size:clamp(26px,4vw,40px);letter-spacing:-.03em;line-height:1;box-shadow:0 14px 34px rgba(90,20,32,.25);position:relative}
+.gw small{font-family:var(--font-ui);font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;align-self:flex-end;margin-bottom:4px}
+.gw::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:22px;background:linear-gradient(var(--gateway),transparent)}
+.rowlbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--fg-3);font-weight:600;margin-top:6px}
+.row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.tile{display:flex;align-items:center;gap:12px;padding:12px 18px 12px 12px;border:1px solid var(--line);border-radius:16px;background:var(--bg);min-width:200px;box-shadow:0 1px 2px rgba(17,19,23,.04);position:relative;transition:transform .25s,box-shadow .25s,border-color .25s}
+.tile .mono{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:#fff;font-family:var(--font-display);font-weight:800;font-size:16px;letter-spacing:-.03em;background:var(--mc);flex:none;position:relative;overflow:hidden}
+.tile .mono img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:5px;background:var(--bg);display:none}
+.tile .mono.wide{width:112px;border-radius:10px}
+.tile .mono.has-logo img{display:block}
+.tile .t{display:grid;gap:1px;line-height:1.2}
+.tile .t b{font-weight:600;font-size:15px}
+.tile .t span{font-size:12px;color:var(--fg-3)}
+.tile.lit{transform:translateY(-4px);border-color:color-mix(in srgb,var(--mc) 55%,var(--line));box-shadow:0 14px 30px color-mix(in srgb,var(--mc) 22%,transparent)}
+.tile.lit .mono::after{content:"";position:absolute;inset:-40%;background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);animation:sheen .9s ease-out}
+@keyframes sheen{from{transform:translateX(-60%)}to{transform:translateX(60%)}}
+
+/* ---- intro choreography ---- */
+.in{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes rise{to{opacity:1;transform:none}}
+.foot{max-width:1680px;margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:16px 28px;font-size:12.5px;color:var(--fg-3);border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){.in,.row .tile{animation:none;opacity:1;transform:none}.mark *{animation:none!important}.mark .dot{transform:none}.tile,.tile.lit{transition:none;transform:none}.tile.lit .mono::after{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="absa" href="/" aria-label="Absa Group AI Technology, CDAIO Office"><img src="logos/absa.svg" alt="" onload="this.parentElement.classList.add('has-logo')"><span class="ring">absa</span><span class="org"><b>Group AI Technology</b><span>CDAIO Office</span></span></a>
+</header>
+
+<section class="hero">
+  <!-- Constellation mark: a core meter with two counter-rotating orbits; every node is a platform in its own colour, wired back to the core -->
+  <svg class="mark in" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+    <circle class="track" cx="60" cy="60" r="28"/>
+    <circle class="track" cx="60" cy="60" r="50"/>
+    <g class="orb o2">
+      <line class="link" x1="60" y1="60" x2="77.1" y2="13.0" stroke="#ff3621"/>
+      <circle class="halo" cx="77.1" cy="13.0" r="9.6" fill="#ff3621" style="--i:0"/>
+      <circle class="dot" cx="77.1" cy="13.0" r="4.6" fill="#ff3621" style="--i:0"/>
+      <line class="link" x1="60" y1="60" x2="110.0" y2="61.7" stroke="#7a3be0"/>
+      <circle class="halo" cx="110.0" cy="61.7" r="9.6" fill="#7a3be0" style="--i:1"/>
+      <circle class="dot" cx="110.0" cy="61.7" r="4.6" fill="#7a3be0" style="--i:1"/>
+      <line class="link" x1="60" y1="60" x2="73.8" y2="108.1" stroke="#00a1e0"/>
+      <circle class="halo" cx="73.8" cy="108.1" r="9.6" fill="#00a1e0" style="--i:2"/>
+      <circle class="dot" cx="73.8" cy="108.1" r="4.6" fill="#00a1e0" style="--i:2"/>
+      <line class="link" x1="60" y1="60" x2="18.5" y2="88.0" stroke="#f2a900"/>
+      <circle class="halo" cx="18.5" cy="88.0" r="9.6" fill="#f2a900" style="--i:3"/>
+      <circle class="dot" cx="18.5" cy="88.0" r="4.6" fill="#f2a900" style="--i:3"/>
+      <line class="link" x1="60" y1="60" x2="20.6" y2="29.2" stroke="#e0379c"/>
+      <circle class="halo" cx="20.6" cy="29.2" r="9.6" fill="#e0379c" style="--i:4"/>
+      <circle class="dot" cx="20.6" cy="29.2" r="4.6" fill="#e0379c" style="--i:4"/>
+    </g>
+    <g class="orb o1">
+      <line class="link" x1="60" y1="60" x2="60.0" y2="32.0" stroke="#0f6cbd"/>
+      <circle class="halo" cx="60.0" cy="32.0" r="9" fill="#0f6cbd" style="--i:0"/>
+      <circle class="dot" cx="60.0" cy="32.0" r="4" fill="#0f6cbd" style="--i:0"/>
+      <line class="link" x1="60" y1="60" x2="84.2" y2="74.0" stroke="#d97757"/>
+      <circle class="halo" cx="84.2" cy="74.0" r="9" fill="#d97757" style="--i:1"/>
+      <circle class="dot" cx="84.2" cy="74.0" r="4" fill="#d97757" style="--i:1"/>
+      <line class="link" x1="60" y1="60" x2="35.8" y2="74.0" stroke="#0f8a5f"/>
+      <circle class="halo" cx="35.8" cy="74.0" r="9" fill="#0f8a5f" style="--i:2"/>
+      <circle class="dot" cx="35.8" cy="74.0" r="4" fill="#0f8a5f" style="--i:2"/>
+    </g>
+    <rect class="core" x="47" y="47" width="26" height="26" rx="8"/>
+    <rect class="core-in" x="55.5" y="55.5" width="9" height="9" rx="2.5"/>
+  </svg>
+  <h1 class="in" style="--d:.25s">One AI Cost Portal,<br>Metering every AI cost in one place</h1>
+  <p class="lede in" style="--d:.4s">Spend, usage and ownership across every platform the bank runs AI on.</p>
+
+  <div class="auth in" style="--d:.55s">
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+    <a class="sso" id="sso" href="/auth/login"><span class="sq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="sso-t">Sign in with Microsoft</span></a>
+    <p class="small">Use your Absa account. <a href="/help/access">Request access</a></p>
+  </div>
+</section>
+
+<footer class="foot"><span>© Absa Group · Internal use only</span><span><a href="/help/access">Request access</a> · <a href="/privacy">Privacy</a></span></footer>
+
+<script>
+(function(){
+  // Sign-in: validate an Absa address, then hand off to the identity provider.
+  var msg=document.getElementById('msg');
+  function show(kind,t){msg.className='msg show '+(kind||'');msg.textContent=t}
+  var q=new URLSearchParams(location.search);
+  if(q.get('signedout'))show('','You have been signed out.');
+  if(q.get('error')==='access_denied')show('err','Your account does not have access yet. Use "Request access" and your cluster lead will be asked to approve.');
+  else if(q.get('error'))show('err','Sign-in did not complete. Try again, or contact the AI Platform team if it keeps happening.');
+  document.getElementById('sso').addEventListener('click',function(){document.getElementById('sso-t').textContent='Redirecting to Microsoft…'});
+
+})();
+</script>
+</body>
+</html>
